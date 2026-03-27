@@ -1,0 +1,63 @@
+-- =========================
+-- DATABASE SCHEMA: D2W DEFENZA
+-- =========================
+
+
+
+--CREATING DATABSE
+
+CREATE DATABASE ppf_db;
+
+
+
+
+-- 🔹 ADMIN TABLE
+
+CREATE TABLE admin_entity (
+    id SERIAL PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    desgination VARCHAR(100) NOT NULL
+);
+
+-- 🔹 ROLE INVENTORY TABLE
+
+
+CREATE TABLE role_details (
+    role_id VARCHAR(255) PRIMARY KEY,
+    batch VARCHAR(255),
+    status VARCHAR(50),
+    added_date DATE,
+    quantity BIGINT
+);
+
+-- 🔹 WARRANTY TABLE
+
+
+CREATE TABLE warranty_entity (
+    id SERIAL PRIMARY KEY,
+
+    warranty_id VARCHAR(50) UNIQUE,
+
+    role_id VARCHAR(255) NOT NULL,
+    customer_name VARCHAR(255) NOT NULL,
+    customer_email VARCHAR(255) NOT NULL,
+
+    make VARCHAR(255) NOT NULL,
+    model VARCHAR(255) NOT NULL,
+    year INT NOT NULL,
+
+    vin_number VARCHAR(255) NOT NULL,
+    product_type VARCHAR(255) NOT NULL,
+
+    installer_name VARCHAR(255) NOT NULL,
+    installation_date DATE NOT NULL,
+
+    warranty_period VARCHAR(50) NOT NULL,
+    expiry_date DATE,
+
+    CONSTRAINT fk_role
+    FOREIGN KEY (role_id)
+    REFERENCES role_details(role_id)
+);
