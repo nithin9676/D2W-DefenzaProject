@@ -1,5 +1,6 @@
 package com.Dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,17 @@ public class Admindao {
 	{
 		 return adminrepostory.findByEmail(email);
 	}
+	
+	 public void deletingAdmin(AdminEntity adminEntity) 
+	 {
+		 
+			 adminrepostory.delete(adminEntity);
+	 }
+	 
+	 public List<AdminEntity> getalldetails()
+	 {
+		 return adminrepostory.findAll();
+	 }
 	
 	
 

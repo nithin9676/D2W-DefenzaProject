@@ -21,13 +21,19 @@ public class WarrantyDao {
 		
 	}
 	
-	public void createWarranty(WarrantyEntity warrantyEntity)
+	public WarrantyEntity createWarranty(WarrantyEntity warrantyEntity)
 	{
-		WarrantyRepository.save(warrantyEntity);
+		 return WarrantyRepository.save(warrantyEntity);
 	}
 	
 	public List<WarrantyEntity> getAllWarranty()
 	{
 		return WarrantyRepository.findAll();
+	}
+	
+	
+	public Optional<WarrantyEntity> findByWarrantyId(String warrnatyid)
+	{
+		return WarrantyRepository.findByWarrantyId(warrnatyid);
 	}
 }

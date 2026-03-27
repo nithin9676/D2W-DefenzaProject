@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Dao.RoleDao;
-
+import com.Dao.WarrantyDao;
 import com.entity.RoleDetails;
 import com.exception.RoleAlreadyExist;
 import com.exception.RoleNotfounException;
@@ -22,6 +22,8 @@ import com.exception.RoleNotfounException;
 public class RoleService {
 	@Autowired
 	RoleDao roleDao;
+	@Autowired
+	WarrantyDao warrantyDao;
 	
 	public void insertingDetails(RoleDetails roledetails)
 	{
@@ -47,6 +49,11 @@ public class RoleService {
 		}
 	}
 	
+	public 	 boolean checkingRoleHasWAriratny(String roleid)
+	{
+		   return warrantyDao.findByroleId(roleid).isPresent();
+	}
+	
 	public void markDamage(String rollid)
 	{
 		//exists is abox which contain roledetais data
@@ -55,13 +62,17 @@ public class RoleService {
 		//we are checking the in the box data is available or not 
 		if(exists.isPresent())
 		{
-			
+			if(checkingRoleHasWAriratny(rollid))
+			{
+				throw new RoleNotfounException(" Alredy Warranty created for this role so we cannot change the status");
+			}
 			//here we are getting data from the box
 			RoleDetails roll=exists.get();
 			roll.setStatus("DAMAGED");
 			
 			//saved in databse
 			roleDao.insertingDetails(roll);
+			
 		}
 		else
 		{
@@ -75,6 +86,11 @@ public class RoleService {
 		Optional<RoleDetails> exists=roleDao.findByRoleId(rollid);
 		if(exists.isPresent())
 		{
+			if(checkingRoleHasWAriratny(rollid))
+			{
+				throw new RoleNotfounException(" Alredy Warranty created for this  role so we cannot change the status");
+			}
+			
 			RoleDetails roll=exists.get();
 			
 			roll.setStatus("AVAILABLE");
@@ -105,6 +121,11 @@ public class RoleService {
 		map.put("used", roleDao.getUsedCount());
 		map.put("damaged", roleDao.getDamagedCount());
 		return map;
+	}
+	
+	public List<RoleDetails> findByRoleidOrBatch(String rollid,String batch)
+	{return roleDao.findByRoleidOrBatch(rollid, batch);
+		
 	}
 
 }

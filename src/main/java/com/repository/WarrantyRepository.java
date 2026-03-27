@@ -9,5 +9,6 @@ import com.entity.WarrantyEntity;
 public interface WarrantyRepository extends JpaRepository<WarrantyEntity, Long>{
 	
 	Optional<WarrantyEntity> findByRoleId(String roleid);
+	Optional<WarrantyEntity> findByWarrantyId(String warrantyid);
 
 }

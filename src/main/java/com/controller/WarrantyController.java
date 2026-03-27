@@ -1,10 +1,12 @@
 package com.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +19,11 @@ import com.entity.RoleDetails;
 import com.entity.WarrantyEntity;
 import com.service.RoleService;
 import com.service.WarrantyService;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class WarrantyController {
 	
-	@Autowired
+	@Autowired 
 	WarrantyService warrantyService;
 	
 	@Autowired
@@ -57,7 +59,7 @@ public class WarrantyController {
 	public String checkrollid(@RequestParam("rollId") String rollId)
 	{
 		Optional<WarrantyEntity> exists=warrantyService.checkrollId(rollId);
-		
+		 
 		if(!exists.isPresent())
 		{
 			return "Not found";
@@ -70,5 +72,11 @@ public class WarrantyController {
 	{
 		return roleService.findByStatus("AVAILABLE");
 	}
+	
+	@GetMapping("Find_Warranty")
+	 public WarrantyEntity findByWarranty(@RequestParam("warrantyid") String warrantyid)
+	 {
+		 return warrantyService.findByWarrantyId(warrantyid);
+	 }
 
 }

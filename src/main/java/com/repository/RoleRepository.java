@@ -13,5 +13,6 @@ public interface RoleRepository extends JpaRepository<RoleDetails, String> {
 	List<RoleDetails> findByStatus(String status);
 	
 	long countByStatus(String status);
+ List<RoleDetails> findByRoleidContainingOrBatchContaining(String rollid, String batch);
 
 }

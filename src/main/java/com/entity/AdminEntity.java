@@ -15,9 +15,13 @@ public class AdminEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private int id;
 	//we use validation dependenci because proper email wil be enter like abc@ like that
-	@Email
+	
 	
 	// it will box will be not blank
+	@NotBlank
+	@Column(name ="user_name")
+	private String userName;
+	@Email
 	@NotBlank
 	@Column(nullable = false,unique = true)
 	private String email;
@@ -25,12 +29,17 @@ public class AdminEntity {
 	@NotBlank
 	@Column(nullable = false)
 	 private String password;
+	
+	@NotBlank
+	private String desgination;
 
-	public AdminEntity(int id,  String email, String password) {
+	public AdminEntity(int id,  String email, String password,String username ,String desgination) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
+		this.userName=username;
+		this.desgination=desgination;
 	}
 
 	public AdminEntity() {
@@ -40,6 +49,14 @@ public class AdminEntity {
 
 	public int getId() {
 		return id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public void setId(int id) {
@@ -61,11 +78,25 @@ public class AdminEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
+	public String getDesgination() {
+		return desgination;
+	}
+
+	public void setDesgination(String desgination) {
+		this.desgination = desgination;
+	}
 
 	@Override
 	public String toString() {
-		return "AdminEntity [id=" + id + ", email=" + email + ", password=" + password + "]";
+		return "AdminEntity [id=" + id + ", userName=" + userName + ", email=" + email + ", password=" + password
+				+ ", desgination=" + desgination + "]";
 	}
+
+	
+
+	
 	
 	
 

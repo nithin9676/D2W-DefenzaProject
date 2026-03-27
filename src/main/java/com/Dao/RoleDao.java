@@ -52,5 +52,9 @@ public class RoleDao {
 	{
 		return rolerepository.countByStatus("DAMAGED");
 	}
+	public List<RoleDetails> findByRoleidOrBatch(String rollid,String batch)
+	{
+		return rolerepository.findByRoleidContainingOrBatchContaining(rollid, batch);
+	}
 
 }
